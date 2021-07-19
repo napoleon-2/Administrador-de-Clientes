@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Turno = ({turno, eliminarTurno}) => (
     <div className="cita">
@@ -15,5 +16,8 @@ const Turno = ({turno, eliminarTurno}) => (
     </div>
      );
 
- 
+ Turno.propTypes = {
+     turno: PropTypes.object.isRequired,
+     eliminarTurno: PropTypes.func.isRequired
+ }
 export default Turno;

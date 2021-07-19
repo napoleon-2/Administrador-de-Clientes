@@ -2,6 +2,7 @@ import React, {Fragment, useState, useEffect}  from 'react'
 import Formulario from './components/Formulario';
 import Turno from './components/Turno';
 
+
 function App() {
 
   // turnos en localStorage
@@ -14,6 +15,7 @@ function App() {
   const [turnos, guardarTurnos] = useState(turnosIniciales);
   //use useEffect para realizar ciertas operaciones cuando el state cambia
   useEffect( () => {
+    let turnosIniciales = JSON.parse(localStorage.getItem('citas'));
     if(turnosIniciales){
       localStorage.setItem('turnos',JSON.stringify(turnos)) 
       }else{

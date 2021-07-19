@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 const Formulario = ({crearTurno}) => {
     //crear state de cliente
@@ -118,4 +119,7 @@ const Formulario = ({crearTurno}) => {
     );
 }
  
+Formulario.propTypes = {
+    crearTurno: PropTypes.func.isRequired
+}
 export default Formulario;
