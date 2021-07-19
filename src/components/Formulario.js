@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-const Formulario = () => {
+const Formulario = ({crearTurno}) => {
     //crear state de cliente
     const [turno, actualizarTurno] = useState({
         producto: '',
@@ -9,6 +10,8 @@ const Formulario = () => {
         hora: '',
         descripcion: ''
     });
+
+    const [error, actualizarError] = useState(false)
 
     //funcion que se ejecuta cuando el usario escribe en un imput
     const actualizarState = e => {
@@ -23,15 +26,36 @@ const Formulario = () => {
     //cuando el usuario precione se agrega el turno
     const submitTurno = e => {
         e.preventDefault();
+        
         //validar
+        if(producto.trim() === '' || cliente.trim() === ''  
+            || fecha.trim() === '' || hora.trim() === '' 
+            || descripcion.trim() === ''){
+            actualizarError(true);
+            return;
+        }
+        //eliminar mensaje de error
+        actualizarError(false);
         //asignar un id
+        turno.id = uuidv4 ();
         //crear turno
+        crearTurno(turno);
         //reiniciar el form
+        actualizarTurno({
+            producto: '',
+            cliente: '',
+            fecha: '',
+            hora: '',
+            descripcion: ''
+        })
     }
 
     return ( 
         <Fragment>
             <h2>Crear Turno </h2>
+
+            {error ? <p className="alerta-error">Todos los campos son obligatorios</p>
+            : null}
             <form
                 onSubmit={submitTurno}
             >
@@ -72,8 +96,11 @@ const Formulario = () => {
                 />
                 <label>Descripcion</label>
                 <textarea 
+                    
                     className="u-full-width"
-                    name="Descripcion"
+                    name="descripcion"
+                    placeholder="descripcion …"
+                    id="Descripcion"
                     onChange={actualizarState}
                     value={descripcion}
                 >
